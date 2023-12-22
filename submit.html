@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会員登録</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>会員登録</h1>
+    <form id="signup-form">
+        <input type="email" id="email" placeholder="メールアドレス" required><br>
+        <input type="password" id="password" placeholder="パスワード" required><br>
+        <button type="submit">登録</button>
+    </form>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+              apiKey: "AIzaSyC__XnXUpAXlvu12OHbO8qeyxkrzZdMC1M",
+            authDomain: "matching-app-f2a57.firebaseapp.com",
+            projectId: "matching-app-f2a57",
+            storageBucket: "matching-app-f2a57.appspot.com",
+            messagingSenderId: "425493406456",
+            appId: "1:425493406456:web:22f52aa54f63c211ecd10d"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('signup-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email.length < 4 || password.length < 4) {
+                alert('メールアドレスとパスワードは4文字以上必要です。');
+                return;
+            }
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("ユーザー登録成功！");
+                    // ここに成功時の処理を記述
+                })
+                .catch((error) => {
+                    console.error("エラー: ", error);
+                    alert("エラー: " + error.message);
+                    // ここにエラー時の処理を記述
+                });
+        });
+    </script>
+</body>
+
+</html>

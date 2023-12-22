@@ -1,0 +1,3 @@
+./img/kao.jpg 山田花子
+./img/kao.jpg 山田花子
+./img/kao3.jpg 田中一子
